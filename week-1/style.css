@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Default Light Mode */
+:root {
+    --primary-color-1: white;
+    --background-color: rgb(240, 241, 242);
+    --secondary-color-1: rgb(16, 16, 16);
+}
+
+/* Light Mode */
+[theme="light"] {
+    --primary-color-1: black;
+    --background-color: rgb(16, 16, 16);
+    --secondary-color-1: rgb(240, 241, 242);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    transition: all 300ms ease;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    background-color: var(--background-color);
+    margin: 36px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+p {
+    color: var(--secondary-color-1);
+    margin: 0;
+}
+
+.header-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.icon-s{
+    width: 20px;
+    height: 20px;
+}
