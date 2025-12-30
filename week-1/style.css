@@ -3,15 +3,25 @@
 /* Default Light Mode */
 :root {
     --primary-color-1: white;
-    --background-color: rgb(240, 241, 242);
+    --background-color: rgb(242, 242, 242);
+    --base-background-color: rgb(230, 230, 230);
     --secondary-color-1: rgb(16, 16, 16);
+    --secondary-color-2: rgb(38, 38, 38);
+
+    --hover-color-1: rgb(220,220,220);
+    --hover-color-2: rgb(66, 66, 66);
 }
 
-/* Light Mode */
-[theme="light"] {
-    --primary-color-1: black;
-    --background-color: rgb(16, 16, 16);
+/* Dark Mode */
+html[theme="dark"] {
+    --primary-color-1: rgb(38, 38, 38);
+    --background-color: rgb(26, 26, 26);
+    --base-background-color: rgb(38, 38, 38);
     --secondary-color-1: rgb(240, 241, 242);
+    --secondary-color-2: rgb(202, 54, 0);
+
+    --hover-color-1: rgb(66, 66, 66);
+    --hover-color-2: rgb(217,88,41);
 }
 
 * {
@@ -20,14 +30,21 @@
     transition: all 300ms ease;
 }
 
+html {
+    background-color: var(--base-background-color);
+    scroll-behavior: smooth;
+    display: flex;
+    justify-content: center;
+}
+
 body {
     font-family: "Montserrat", sans-serif;
     background-color: var(--background-color);
-    margin: 36px;
-}
-
-html {
-    scroll-behavior: smooth;
+    width: 50%;
+    height: 100vh;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
 }
 
 p {
@@ -35,19 +52,161 @@ p {
     margin: 0;
 }
 
+/* TEMEL */
+
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.gap-l {
+    gap: 32px;
+}
+
+
+/* HEADER */
+
 .header-section{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
-.icon {
-    width: 32px;
-    height: 32px;
+/* ARAMA VE EKLEME */
+
+.search-and-add-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-section {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 0 4px;
+    background: none;
+    color: var(--secondary-color-1);
+    border: none;
+    height: 40px;
+}
+
+/* BUTONLAR */
+
+.square-button, .circle-button {
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 
-.icon-s{
+.square-button {
+    border-radius: 8px;
+    background-color: var(--secondary-color-2);
+}
+.square-button:hover {
+    background-color: var(--hover-color-2);
+}
+
+.circle-button {
+    border-radius: 100%;
+    background-color: var(--primary-color-1);
+}
+.circle-button:hover{
+    background-color: var(--hover-color-1);
+}
+
+.add-task-button {
+    min-width: max-content;
+    padding: 10px;
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.add-task-button:hover {
+    background-color: var(--hover-color-1);
+    border-radius: 50px;
+}
+
+.orange {
+    background-color: rgb(202,54,0);
+}
+
+.orange:hover {
+    background-color: rgb(217,88,41);
+}
+
+.black {
+    background-color: rgb(26,26,26);
+}
+.black:hover {
+    background-color: rgb(66, 66, 66);
+    border-radius: 100%;
+}
+
+/* İKONLAR */
+
+.icon {
     width: 20px;
     height: 20px;
+    cursor: pointer;
+}
+
+.help-icon {
+    stroke: var(--secondary-color-1);
+}
+
+/* YAZILAR */
+
+.brand-text{
+    color: rgb(252,54,0);
+    font-weight: bold;
+}
+
+.sub-text {
+    font-size: 13px;
+}
+
+@media screen and (max-width: 744px) {
+
+    body {
+        width: 100%;
+        margin: 0 10px;
+        padding: 12px;
+    }
+
+    .row-wrap {
+        flex-direction: column;
+    }
+
+    .row-wrap-reverse {
+        flex-direction: column-reverse;
+    }
+
+    .gap-l {
+        gap: 12px;
+    }
+
+    .add-task-button{
+        justify-content: space-between;
+        min-width: auto;
+    }
+
+    .search-section {
+        width: auto;
+    }
 }
