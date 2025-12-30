@@ -17,8 +17,8 @@
                     id="modeToggle"
                     class="icon"
                     src="./assets/light-to-dark.png"
-                    src-light="./assets/light-to-dark.png"
-                    src-dark="./assets/dark-to-light.png"
+                    src-light="./assets/dark-to-light.png"
+                    src-dark="./assets/light-to-dark.png"
                     alt="Color them icon"/>
         </div>
         <p class="sub-text">Tema</p>
@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div class="add-task-button row">
+    <div class="add-task-button row" id="openAddTaskPopup">
         <p>Yeni Görev <strong>Oluştur</strong></p>
         <div class="circle-button orange">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,8 +55,40 @@
             </svg>
         </div>
     </div>
-
 </div>
+
+<div class="popup" id="addTaskPopup">
+    <div class="add-task-section">
+        <div class="add-task-header">
+            <p>Yeni Görev Ekle</p>
+            <div class="circle-button mini-button" id="closeAddTaskPopup">
+                <svg class="close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 7L7 17M7 7L17 17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="add-task-form" id="addTaskForm">
+            <form>
+                <div class="form-element">
+                    <label for="taskName">Görev Açıklaması</label>
+                    <input type="text" id="taskName" class="search-input" placeholder="Görev açıklamasını yazınız" required>
+                </div>
+                <button class="add-form-button orange">Görev Ekle</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="task-list-section">
+    <div class="task-list-header">
+        <p>Bütün Liste</p>
+    </div>
+
+    <div id="tasksContainer" class="task-container"></div>
+</div>
+
+
 
 <script src="script.js"></script>
 </body>
