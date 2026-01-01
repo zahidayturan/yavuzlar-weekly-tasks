@@ -279,9 +279,11 @@ const renderTasks = () => {
         } else {
             tasksContainer.innerHTML = '<p class="empty-list">Görev bulunamadı</p>';
         }
+        taskPaginationInfo.style.display = "none";
         return;
     }
 
+    taskPaginationInfo.style.display = "flex";
     totalTask.innerHTML = totalItems.toString();
     shownTask.innerHTML = tasks.length.toString();
 
@@ -466,6 +468,7 @@ window.addEventListener('keydown', (e) => {
 
 let currentPage = 1;
 const tasksPerPage = 10;
+const taskPaginationInfo = document.querySelector('#taskPaginationInfo');
 const totalTask = document.querySelector('#totalTask');
 const shownTask = document.querySelector('#shownTask');
 
