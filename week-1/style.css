@@ -391,7 +391,13 @@ form {
     background-color: var(--hover-color-1);
 }
 
-.sort-item input[type="radio"] {
+input[type="radio"] {
+    width: 24px;
+    margin-right: 12px;
+    accent-color: rgb(252,54,0);
+}
+
+input[type="checkbox"] {
     width: 24px;
     margin-right: 12px;
     accent-color: rgb(252,54,0);
@@ -411,6 +417,11 @@ form {
 
 .sub-text {
     font-size: 13px;
+}
+
+.info-text{
+    font-weight: bold;
+    color: rgb(252,54,0);
 }
 
 @media screen and (max-width: 744px) {

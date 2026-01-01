@@ -245,8 +245,19 @@ const renderTasks = () => {
     tasksContainer.innerHTML = '';
 
     if (tasks.length === 0) {
-        tasksContainer.innerHTML = '<p class="empty-list">Kriterlere uygun görev bulunamadı.</p>';
+        if(currentFilters.length !== 0) {
+            tasksContainer.innerHTML = '<p class="empty-list">Filtrelere uygun görev bulunamadı.</p>';
+
+        } else {
+            tasksContainer.innerHTML = '<p class="empty-list">Görev bulunamadı.</p>';
+        }
         return;
+    }
+
+    if (currentFilters.length !== 0) {
+        filterCounterText.innerText = `(${currentFilters.length})`;
+    } else {
+        filterCounterText.innerText = "";
     }
 
     const fragment = document.createDocumentFragment();
@@ -296,3 +307,40 @@ document.querySelectorAll('input[name="sortOrder"]').forEach(radio => {
 });
 
 /// FİLTRELEME - POPUP AÇMA KAPATMA
+
+const filterPopup = document.querySelector('#filterPopup');
+const openFilterPopupBtn = document.querySelector('#openFilterPopup');
+const closeFilterPopupBtn = document.querySelector('#closeFilterPopup');
+
+const toggleFilterPopup = (isOpen) => {
+    filterPopup.style.display = isOpen ? 'flex' : 'none';
+    document.body.classList.toggle('no-scroll', isOpen);
+    if(isOpen) {
+        document.querySelector(`input[value="${currentSort}"]`).checked = true;
+        filterPopup.classList.add('active');
+    }
+};
+
+openFilterPopupBtn.addEventListener('click', () => toggleFilterPopup(true));
+closeFilterPopupBtn.addEventListener('click', () => toggleFilterPopup(false));
+
+window.addEventListener('click', (e) => {
+    if (e.target === filterPopup) toggleFilterPopup(false);
+});
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && filterPopup.style.display === 'flex') {
+        toggleFilterPopup(false);
+    }
+});
+
+const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+const filterCounterText = document.getElementById('filterCounter');
+filterCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+        currentFilters = Array.from(filterCheckboxes)
+            .filter(i => i.checked)
+            .map(i => i.value);
+        renderTasks();
+    });
+});
