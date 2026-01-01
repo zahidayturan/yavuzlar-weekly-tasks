@@ -211,11 +211,22 @@ const createTaskElement = (task) => {
     return card;
 };
 
+let searchQuery = '';
+const searchInput = document.querySelector('.search-input');
 let currentFilters = [];
 let currentSort = SortOptions.CREATED_DESC;
 
+const taskListHeaderText = document.getElementById('taskListHeaderText');
+
 const getProcessedTasks = () => {
     let tasks = storage.get();
+
+    if (searchQuery.trim() !== '') {
+        const query = searchQuery.toLowerCase().trim();
+        tasks = tasks.filter(task =>
+            task.title.toLowerCase().includes(query)
+        );
+    }
 
     if (currentFilters.length > 0) {
         tasks = tasks.filter(task => currentFilters.includes(task.status));
@@ -244,6 +255,18 @@ const renderTasks = () => {
 
     tasksContainer.innerHTML = '';
 
+    if (currentFilters.length !== 0) {
+        filterCounterText.innerText = `(${currentFilters.length})`;
+    } else {
+        filterCounterText.innerText = "";
+    }
+
+    if(searchQuery.length === 0) {
+        taskListHeaderText.innerText = "Bütün Liste";
+    } else {
+        taskListHeaderText.innerText = `Arama Sonuçları (${tasks.length})`;
+    }
+
     if (tasks.length === 0) {
         if(currentFilters.length !== 0) {
             tasksContainer.innerHTML = '<p class="empty-list">Filtrelere uygun görev bulunamadı.</p>';
@@ -252,12 +275,6 @@ const renderTasks = () => {
             tasksContainer.innerHTML = '<p class="empty-list">Görev bulunamadı.</p>';
         }
         return;
-    }
-
-    if (currentFilters.length !== 0) {
-        filterCounterText.innerText = `(${currentFilters.length})`;
-    } else {
-        filterCounterText.innerText = "";
     }
 
     const fragment = document.createDocumentFragment();
@@ -344,3 +361,19 @@ filterCheckboxes.forEach(checkbox => {
         renderTasks();
     });
 });
+
+
+/* ARAMA FİLTRESİ */
+
+searchInput.addEventListener('input', (e) => {
+    searchQuery = e.target.value;
+    renderTasks();
+});
+
+const searchBtn = document.getElementById('searchButton');
+searchBtn.addEventListener('click', () => renderTasks());
+
+
+/* DİĞER */
+
+document.getElementById('helpButton').addEventListener('click', () => window.open("https://github.com/zahidayturan", '_blank'));
