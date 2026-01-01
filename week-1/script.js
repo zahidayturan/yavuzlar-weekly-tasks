@@ -86,7 +86,7 @@ taskForm.addEventListener('submit', (e) => {
 
     taskNameInput.value = '';
     renderTasks();
-    togglePopup(false);
+    toggleAddTaskPopup(false);
 });
 
 
@@ -237,11 +237,26 @@ const getProcessedTasks = () => {
         }
     });
 
-    return tasks;
+    const totalItems = tasks.length;
+    const totalPages = Math.ceil(totalItems / tasksPerPage);
+
+    // Eğer filtreleme sonucu sayfa sayısı azalırsa mevcut sayfayı koru
+    if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+
+    const startIndex = (currentPage - 1) * tasksPerPage;
+    const endIndex = startIndex + tasksPerPage;
+
+    const paginatedTasks = tasks.slice(startIndex, endIndex);
+
+    return {
+        tasks: paginatedTasks,
+        totalPages,
+        totalItems
+    };
 };
 
 const renderTasks = () => {
-    const tasks = getProcessedTasks();
+    const { tasks, totalPages, totalItems } = getProcessedTasks();
 
     tasksContainer.innerHTML = '';
 
@@ -267,12 +282,17 @@ const renderTasks = () => {
         return;
     }
 
+    totalTask.innerHTML = totalItems.toString();
+    shownTask.innerHTML = tasks.length.toString();
+
     const fragment = document.createDocumentFragment();
     tasks.forEach(task => {
         fragment.appendChild(createTaskElement(task));
     });
 
     tasksContainer.appendChild(fragment);
+
+    renderPagination(totalPages);
 };
 
 document.addEventListener('DOMContentLoaded', renderTasks);
@@ -300,6 +320,7 @@ closeSortPopupBtn.addEventListener('click', () => toggleSortPopup(false));
 document.querySelectorAll('input[name="sortOrder"]').forEach(radio => {
     radio.addEventListener('change', (e) => {
         currentSort = e.target.value;
+        currentPage = 1;
         renderTasks();
         setTimeout(() => toggleSortPopup(false), 200);
     });
@@ -331,6 +352,8 @@ filterCheckboxes.forEach(checkbox => {
         currentFilters = Array.from(filterCheckboxes)
             .filter(i => i.checked)
             .map(i => i.value);
+
+        currentPage = 1;
         renderTasks();
     });
 });
@@ -340,6 +363,7 @@ filterCheckboxes.forEach(checkbox => {
 
 searchInput.addEventListener('input', (e) => {
     searchQuery = e.target.value;
+    currentPage = 1;
     renderTasks();
 });
 
@@ -437,6 +461,59 @@ window.addEventListener('keydown', (e) => {
         if (activePopup) activePopup.toggle(false);
     }
 });
+
+/* PAGINATION */
+
+let currentPage = 1;
+const tasksPerPage = 10;
+const totalTask = document.querySelector('#totalTask');
+const shownTask = document.querySelector('#shownTask');
+
+const renderPagination = (totalPages) => {
+    const paginationContainer = document.querySelector('#paginationContainer');
+    paginationContainer.innerHTML = '';
+
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'page-btn';
+    prevBtn.innerHTML = `
+        <svg class="page-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+        </svg>
+    `;
+
+    prevBtn.disabled = currentPage === 1;
+    prevBtn.onclick = () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTasks();
+            window.scrollTo(0, 0);
+        }
+    };
+
+    const pageInfo = document.createElement('div');
+    pageInfo.className = 'page-info';
+    pageInfo.innerHTML = `<span>Sayfa ${currentPage} / ${totalPages}</span>`;
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'page-btn';
+    nextBtn.innerHTML = `
+        <svg class="page-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+        </svg>
+    `;
+    nextBtn.disabled = currentPage === totalPages;
+    nextBtn.onclick = () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTasks();
+            window.scrollTo(0, 0);
+        }
+    };
+
+    paginationContainer.appendChild(prevBtn);
+    paginationContainer.appendChild(pageInfo);
+    paginationContainer.appendChild(nextBtn);
+};
 
 
 /* DİĞER */

@@ -71,6 +71,11 @@ p {
     height: 100vh;
 }
 
+.spc-between {
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
 /* HEADER */
 
 .header-section{
@@ -378,7 +383,7 @@ form {
     cursor: pointer;
 }
 
-.help-icon, .close-icon, .edit-icon, .sort-icon, .filter-icon {
+.help-icon, .close-icon, .edit-icon, .sort-icon, .filter-icon, .page-icon {
     stroke: var(--secondary-color-1);
 }
 
@@ -413,6 +418,50 @@ input[type="checkbox"] {
     font-size: 13px;
 }
 
+/* PAGINATION */
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 6px 0 20px 0;
+    flex-wrap: wrap;
+}
+
+.pagination-wrapper span {
+    font-size: 13px;
+}
+
+.page-btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 2px;
+    border: none;
+    background-color: var(--background-color);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-btn:hover {
+    color: rgb(252,54,0);
+    background-color: var(--hover-color-1);
+}
+
+.page-btn.active {
+    background-color: rgb(252,54,0);
+    border-color: rgb(166, 38, 3);
+    box-shadow: 0 4px 10px rgba(252, 54, 0, 0.2);
+}
+
+.page-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
 /* YAZILAR */
 
 .brand-text{
@@ -434,6 +483,12 @@ input[type="checkbox"] {
 
 .text-center {
     text-align: center;
+}
+
+span {
+    font-size: 13px;
+    user-select: none;
+    color: var(--secondary-color-1);
 }
 
 @media screen and (max-width: 744px) {
