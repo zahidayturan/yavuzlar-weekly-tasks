@@ -71,19 +71,6 @@ p {
     height: 100vh;
 }
 
-.popup {
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    width: 100%;
-    height: 100%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-}
-
 /* HEADER */
 
 .header-section{
@@ -138,9 +125,22 @@ form {
     gap: 8px;
 }
 
-/* GÖREV EKLEME */
+/* POPUP */
 
-.add-task-section {
+.popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.popup-body {
     min-width: 40%;
     margin: 10px;
     background-color: var(--primary-color-1);
@@ -150,7 +150,7 @@ form {
     flex-direction: column;
 }
 
-.add-task-header{
+.popup-header{
     height: 50px;
     background-color: var(--secondary-color-2);
     display: flex;
@@ -160,10 +160,16 @@ form {
     border-radius: 8px 8px 0 0;
 }
 
-.add-task-header p{
+.popup-header p{
     color: white;
     margin-left: 8px;
 }
+
+.popup-content {
+    overflow-x: auto;
+}
+
+/* GÖREV EKLEME */
 
 .add-task-form {
     padding: 10px;
@@ -354,7 +360,7 @@ form {
 }
 
 .icon-button:hover {
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: var(--hover-color-1);
 }
 
@@ -368,6 +374,32 @@ form {
 
 .help-icon, .close-icon, .edit-icon, .sort-icon, .filter-icon {
     stroke: var(--secondary-color-1);
+}
+
+/* SIRALAMA POPUP İÇERİK */
+.sort-item {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 4px 12px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.sort-item:hover {
+    background-color: var(--hover-color-1);
+}
+
+.sort-item input[type="radio"] {
+    width: 24px;
+    margin-right: 12px;
+    accent-color: rgb(252,54,0);
+}
+
+.sort-text {
+    font-weight: normal;
+    font-size: 13px;
 }
 
 /* YAZILAR */

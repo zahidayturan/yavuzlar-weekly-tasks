@@ -58,8 +58,8 @@
 </div>
 
 <div class="popup" id="addTaskPopup">
-    <div class="add-task-section">
-        <div class="add-task-header">
+    <div class="popup-body">
+        <div class="popup-header">
             <p>Yeni Görev Ekle</p>
             <div class="circle-button mini-button" id="closeAddTaskPopup">
                 <svg class="close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <div class="add-task-form" id="addTaskForm">
+        <div class="add-task-form popup-content" id="addTaskForm">
             <form>
                 <div class="form-element">
                     <label for="taskName">Görev Açıklaması</label>
@@ -84,7 +84,7 @@
     <div class="task-list-header">
         <p class="task-list-header-text">Bütün Liste</p>
         <div class="row">
-            <div class="icon-button row">
+            <div class="icon-button row" id="openSortPopup">
                 <p class="hidden-mobile">Sırala</p>
                 <svg class="sort-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17 4V20M17 20L13 16M17 20L21 16M7 20V4M7 4L3 8M7 4L11 8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -100,6 +100,37 @@
     </div>
 
     <div id="tasksContainer" class="task-container"></div>
+</div>
+
+<div class="popup" id="sortPopup">
+    <div class="popup-body">
+        <div class="popup-header">
+            <p>Sıralama Seçenekleri</p>
+            <div class="circle-button mini-button" id="closeSortPopup">
+                <svg class="close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 7L7 17M7 7L17 17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+        <div class="popup-content">
+            <label class="sort-item">
+                <input type="radio" name="sortOrder" value="created_desc" checked>
+                <span class="sort-text">Ekleme Tarihi (Yeniden Eskiye)</span>
+            </label>
+            <label class="sort-item">
+                <input type="radio" name="sortOrder" value="created_asc">
+                <span class="sort-text">Ekleme Tarihi (Eskiden Yeniye)</span>
+            </label>
+            <label class="sort-item">
+                <input type="radio" name="sortOrder" value="updated_desc">
+                <span class="sort-text">Güncelleme Tarihi (Yeniden Eskiye)</span>
+            </label>
+            <label class="sort-item">
+                <input type="radio" name="sortOrder" value="updated_asc">
+                <span class="sort-text">Güncelleme Tarihi (Eskiden Yeniye)</span>
+            </label>
+        </div>
+    </div>
 </div>
 
 
