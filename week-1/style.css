@@ -150,6 +150,10 @@ form {
     flex-direction: column;
 }
 
+.smaller-popup {
+    min-width: 30%;
+}
+
 .popup-header{
     height: 50px;
     background-color: var(--secondary-color-2);
@@ -281,6 +285,7 @@ form {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    border: none;
 }
 
 .mini-button {
@@ -413,15 +418,18 @@ input[type="checkbox"] {
 .brand-text{
     color: rgb(252,54,0);
     font-weight: bold;
+    user-select: none;
 }
 
 .sub-text {
     font-size: 13px;
+    user-select: none;
 }
 
 .info-text{
     font-weight: bold;
     color: rgb(252,54,0);
+    user-select: none;
 }
 
 .text-center {

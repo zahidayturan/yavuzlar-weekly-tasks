@@ -42,29 +42,19 @@ document.addEventListener('DOMContentLoaded', function () {
 /// GÖREV EKLEME POPUP AÇMA KAPATMA
 
 const addTaskPopup = document.querySelector('#addTaskPopup');
-const openBtn = document.querySelector('#openAddTaskPopup');
-const closeBtn = document.querySelector('#closeAddTaskPopup');
+const openAddTaskBtn = document.querySelector('#openAddTaskPopup');
+const closeAddTaskBtn = document.querySelector('#closeAddTaskPopup');
 const taskInput = document.querySelector('#taskName');
 
-const togglePopup = (isOpen) => {
+const toggleAddTaskPopup = (isOpen) => {
     addTaskPopup.style.display = isOpen ? 'flex' : 'none';
     document.body.classList.toggle('no-scroll', isOpen);
 
     if (isOpen) taskInput.focus();
 };
 
-openBtn.addEventListener('click', () => togglePopup(true));
-closeBtn.addEventListener('click', () => togglePopup(false));
-
-window.addEventListener('click', (e) => {
-    if (e.target === addTaskPopup) togglePopup(false);
-});
-
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && addTaskPopup.style.display === 'flex') {
-        togglePopup(false);
-    }
-});
+openAddTaskBtn.addEventListener('click', () => toggleAddTaskPopup(true));
+closeAddTaskBtn.addEventListener('click', () => toggleAddTaskPopup(false));
 
 
 /// FORM İLE GÖREV EKLEME İŞLEMLERİ
@@ -205,8 +195,7 @@ const createTaskElement = (task) => {
     });
 
     card.querySelector('.edit-btn').addEventListener('click', () => {
-        const newTitle = prompt('Görevi düzenle:', task.title);
-        if (newTitle?.trim()) updateTask(task.id, { title: newTitle.trim() });
+        toggleEditPopup(true, task);
     });
 
     return card;
@@ -307,15 +296,6 @@ const toggleSortPopup = (isOpen) => {
 openSortPopupBtn.addEventListener('click', () => toggleSortPopup(true));
 closeSortPopupBtn.addEventListener('click', () => toggleSortPopup(false));
 
-window.addEventListener('click', (e) => {
-    if (e.target === sortPopup) toggleSortPopup(false);
-});
-
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && sortPopup.style.display === 'flex') {
-        toggleSortPopup(false);
-    }
-});
 
 document.querySelectorAll('input[name="sortOrder"]').forEach(radio => {
     radio.addEventListener('change', (e) => {
@@ -343,16 +323,6 @@ const toggleFilterPopup = (isOpen) => {
 
 openFilterPopupBtn.addEventListener('click', () => toggleFilterPopup(true));
 closeFilterPopupBtn.addEventListener('click', () => toggleFilterPopup(false));
-
-window.addEventListener('click', (e) => {
-    if (e.target === filterPopup) toggleFilterPopup(false);
-});
-
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && filterPopup.style.display === 'flex') {
-        toggleFilterPopup(false);
-    }
-});
 
 const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
 const filterCounterText = document.getElementById('filterCounter');
@@ -386,7 +356,6 @@ const deletePopupTask = document.querySelector('#deletePopupTask');
 let taskIdToDelete = null;
 const confirmDeleteBtn = document.querySelector('#deletePopup .add-form-button.orange');
 
-// Popup Açma/Kapama Fonksiyonu
 const toggleDeletePopup = (isOpen, task = null) => {
     deletePopup.style.display = isOpen ? 'flex' : 'none';
     document.body.classList.toggle('no-scroll', isOpen);
@@ -408,15 +377,67 @@ confirmDeleteBtn.addEventListener('click', () => {
     }
 });
 closeDeletePopupBtn.addEventListener('click', () => toggleDeletePopup(false));
+
+
+/* DÜZENLEME POPUP İŞLEMLERİ */
+
+let taskIdToEdit = null;
+
+const editTaskPopup = document.querySelector('#editTaskPopup');
+const editTaskInput = document.querySelector('#oldTaskName');
+const editTaskForm = document.querySelector('#editTaskForm');
+const closeEditPopupBtn = document.querySelector('#closeEditTaskPopup');
+const toggleEditPopup = (isOpen, task = null) => {
+    editTaskPopup.style.display = isOpen ? 'flex' : 'none';
+    document.body.classList.toggle('no-scroll', isOpen);
+
+    if (isOpen && task) {
+        taskIdToEdit = task.id;
+        editTaskInput.value = task.title;
+        editTaskPopup.classList.add('active');
+
+        setTimeout(() => editTaskInput.focus(), 100);
+    } else {
+        taskIdToEdit = null;
+        editTaskPopup.classList.remove('active');
+    }
+};
+
+closeEditPopupBtn.addEventListener('click', () => toggleEditPopup(false));
+
+editTaskForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const newTitle = editTaskInput.value.trim();
+
+    if (newTitle && taskIdToEdit) {
+        updateTask(taskIdToEdit, { title: newTitle });
+        toggleEditPopup(false);
+    }
+});
+
+
+/* GENEL POPUP KAPATMA İŞLEMLERİ */
+
+const popups = [
+    { element: addTaskPopup, toggle: toggleAddTaskPopup },
+    { element: sortPopup, toggle: toggleSortPopup },
+    { element: filterPopup, toggle: toggleFilterPopup },
+    { element: deletePopup, toggle: toggleDeletePopup },
+    { element: editTaskPopup, toggle: toggleEditPopup }
+];
+
 window.addEventListener('click', (e) => {
-    if (e.target === deletePopup) toggleDeletePopup(false);
+    const targetPopup = popups.find(p => p.element === e.target);
+    if (targetPopup) targetPopup.toggle(false);
 });
 
 window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && deletePopup.style.display === 'flex') {
-        toggleDeletePopup(false);
+    if (e.key === 'Escape') {
+        const activePopup = popups.find(p => p.element.style.display === 'flex');
+        if (activePopup) activePopup.toggle(false);
     }
 });
+
 
 /* DİĞER */
 
