@@ -3,15 +3,25 @@
 /* Default Light Mode */
 :root {
     --primary-color-1: white;
-    --background-color: rgb(240, 241, 242);
+    --background-color: rgb(242, 242, 242);
+    --base-background-color: rgb(230, 230, 230);
     --secondary-color-1: rgb(16, 16, 16);
+    --secondary-color-2: rgb(38, 38, 38);
+
+    --hover-color-1: rgb(220,220,220);
+    --hover-color-2: rgb(66, 66, 66);
 }
 
-/* Light Mode */
-[theme="light"] {
-    --primary-color-1: black;
-    --background-color: rgb(16, 16, 16);
+/* Dark Mode */
+html[theme="dark"] {
+    --primary-color-1: rgb(38, 38, 38);
+    --background-color: rgb(26, 26, 26);
+    --base-background-color: rgb(38, 38, 38);
     --secondary-color-1: rgb(240, 241, 242);
+    --secondary-color-2: rgb(202, 54, 0);
+
+    --hover-color-1: rgb(66, 66, 66);
+    --hover-color-2: rgb(217,88,41);
 }
 
 * {
@@ -20,14 +30,22 @@
     transition: all 300ms ease;
 }
 
+html {
+    background-color: var(--base-background-color);
+    scroll-behavior: smooth;
+    display: flex;
+    justify-content: center;
+    scrollbar-gutter: stable;
+}
+
 body {
     font-family: "Montserrat", sans-serif;
     background-color: var(--background-color);
-    margin: 36px;
-}
-
-html {
-    scroll-behavior: smooth;
+    width: 50%;
+    min-height: 100vh;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
 }
 
 p {
@@ -35,19 +53,510 @@ p {
     margin: 0;
 }
 
+/* TEMEL */
+
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.gap-l {
+    gap: 32px;
+}
+
+.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.spc-between {
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+/* HEADER */
+
 .header-section{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
+/* ARAMA VE EKLEME */
+
+.search-and-add-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-section {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    width: 100%;
+    background: none;
+    color: var(--secondary-color-1);
+    border: none;
+    outline: none;
+    height: 40px;
+    padding: 5px;
+    box-sizing: border-box;
+    transition: border-bottom-color 0.3s ease;
+}
+
+input:focus {
+    border-bottom: 1px solid #ca3600;
+}
+
+label {
+    min-width: max-content;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--secondary-color-1);;
+}
+
+form {
+    width: 100%;
+    gap: 8px;
+}
+
+/* POPUP */
+
+.popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.popup-body {
+    min-width: 40%;
+    margin: 10px;
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.smaller-popup {
+    min-width: 30%;
+}
+
+.popup-header{
+    height: 50px;
+    background-color: var(--secondary-color-2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    border-radius: 8px 8px 0 0;
+}
+
+.popup-header p{
+    color: white;
+    margin-left: 8px;
+}
+
+.popup-content {
+    overflow-x: auto;
+    padding: 10px;
+}
+
+/* GÖREV EKLEME */
+
+.add-task-form {
+    padding: 10px;
+}
+
+.form-element {
+    width: 100%;
+}
+
+/* GÖREV LİSTELEM */
+
+.task-list-section{
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-list-header{
+    height: 50px;
+    background-color: var(--secondary-color-2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    border-radius: 8px 8px 0 0;
+}
+
+.task-list-header-text {
+    color: white;
+    font-weight: bold;
+}
+
+.task-card{
+    background-color: var(--background-color);
+    margin: 0 10px 10px 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.empty-list{
+    margin: 20px 10px 30px 10px;
+    text-align: center;
+}
+
+.task-status-bar{
+    width: 8px;
+    height: 100%;
+    border-radius: 4px 0 0 4px;
+}
+
+.task-status-badge{
+    font-size: 13px;
+    min-width: 92px;
+    font-weight: 600;
+}
+
+.task-status-divider{
+    width: 2px;
+    height: 70%;
+    border-radius: 8px;
+    background-color: var(--primary-color-1);
+}
+
+.task-title {
+    text-align: left;
+    align-self: center;
+    width: 100%;
+    font-size: 13px;
+}
+
+.task-date {
+    text-align: right;
+    font-size: 11px;
+    min-width: max-content;
+    align-self: center;
+}
+
+.status-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 4px;
+}
+
+.status-select {
+    font-family: "Montserrat", sans-serif;
+    background: var(--primary-color-1);
+    color: var(--secondary-color-1);
+    border: none;
+    border-radius: 4px;
+    padding: 2px 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+
+/* BUTONLAR */
+
+.square-button, .circle-button {
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+}
+
+.mini-button {
+    min-width: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    align-self: center;
+}
+
+.square-button {
+    border-radius: 8px;
+    background-color: var(--secondary-color-2);
+}
+.square-button:hover {
+    background-color: var(--hover-color-2);
+}
+
+.circle-button {
+    border-radius: 100%;
+    background-color: var(--primary-color-1);
+}
+.circle-button:hover{
+    background-color: var(--hover-color-1);
+}
+
+.add-task-button {
+    min-width: max-content;
+    padding: 10px;
+    background-color: var(--primary-color-1);
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.add-task-button:hover {
+    background-color: var(--hover-color-1);
+    border-radius: 50px;
+}
+
+.orange {
+    background-color: rgb(202,54,0);
+}
+
+.orange:hover {
+    background-color: rgb(217,88,41);
+}
+
+.black {
+    background-color: rgb(26,26,26);
+}
+
+.black:hover {
+    background-color: rgb(66, 66, 66);
+    border-radius: 100%;
+}
+
+.add-form-button {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    margin-top: 12px;
+}
+
+.delete-btn{
+    margin: 8px 8px 8px 0;
+}
+
+.icon-button {
+    border-radius: 50px;
+    background-color: var(--background-color);
+    min-height: 32px;
+    padding: 0 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.icon-button:hover {
+    border-radius: 4px;
+    background-color: var(--hover-color-1);
+}
+
+/* İKONLAR */
+
 .icon {
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
 }
 
-.icon-s{
-    width: 20px;
-    height: 20px;
+.help-icon, .close-icon, .edit-icon, .sort-icon, .filter-icon, .page-icon {
+    stroke: var(--secondary-color-1);
+}
+
+/* SIRALAMA POPUP İÇERİK */
+.sort-item {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 4px 12px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.sort-item:hover {
+    background-color: var(--hover-color-1);
+}
+
+input[type="radio"] {
+    width: 24px;
+    margin-right: 12px;
+    accent-color: rgb(252,54,0);
+}
+
+input[type="checkbox"] {
+    width: 24px;
+    margin-right: 12px;
+    accent-color: rgb(252,54,0);
+}
+
+.sort-text {
+    font-weight: normal;
+    font-size: 13px;
+}
+
+/* PAGINATION */
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 6px 0 20px 0;
+    flex-wrap: wrap;
+}
+
+.pagination-wrapper span {
+    font-size: 13px;
+}
+
+.page-btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 2px;
+    border: none;
+    background-color: var(--background-color);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-btn:hover {
+    color: rgb(252,54,0);
+    background-color: var(--hover-color-1);
+}
+
+.page-btn.active {
+    background-color: rgb(252,54,0);
+    border-color: rgb(166, 38, 3);
+    box-shadow: 0 4px 10px rgba(252, 54, 0, 0.2);
+}
+
+.page-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+/* YAZILAR */
+
+.brand-text{
+    color: rgb(252,54,0);
+    font-weight: bold;
+    user-select: none;
+}
+
+.sub-text {
+    font-size: 13px;
+    user-select: none;
+}
+
+.info-text{
+    font-weight: bold;
+    color: rgb(252,54,0);
+    user-select: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+span {
+    font-size: 13px;
+    user-select: none;
+    color: var(--secondary-color-1);
+}
+
+@media screen and (max-width: 744px) {
+
+    body {
+        width: 100%;
+        margin: 0 10px;
+        padding: 12px;
+    }
+
+    .row-wrap {
+        flex-direction: column;
+    }
+
+    .row-wrap-reverse {
+        flex-direction: column-reverse;
+    }
+
+    .gap-l {
+        gap: 12px;
+    }
+
+    .add-task-button{
+        justify-content: space-between;
+        min-width: auto;
+    }
+
+    .search-section {
+        width: auto;
+    }
+
+    .task-card{
+        margin: 0 10px 10px 10px;
+        flex-direction: column;
+        justify-content: start;
+    }
+
+    .task-status-bar{
+        height: 8px;
+        width: 100%;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .task-status-badge{
+        font-size: 13px;
+        min-width: 92px;
+        font-weight: 600;
+    }
+
+    .task-status-divider{
+        width: 70%;
+        height: 1px;
+    }
+
+    .task-title {
+        text-align: center;
+    }
+
+    .task-date {
+        text-align: center;
+        font-size: 10px;
+    }
+
+    .task-buttons{
+        align-self: center;
+    }
+
+    .hidden-mobile {
+        display: none;
+    }
 }
