@@ -167,6 +167,7 @@ form {
 
 .popup-content {
     overflow-x: auto;
+    padding: 10px;
 }
 
 /* GÖREV EKLEME */
@@ -214,7 +215,7 @@ form {
 }
 
 .empty-list{
-    margin: 0 10px 10px 10px;
+    margin: 20px 10px 30px 10px;
     text-align: center;
 }
 
@@ -382,7 +383,6 @@ form {
     align-items: center;
     justify-content: left;
     padding: 4px 12px;
-    margin: 4px;
     cursor: pointer;
     border-radius: 10px;
 }
@@ -422,6 +422,10 @@ input[type="checkbox"] {
 .info-text{
     font-weight: bold;
     color: rgb(252,54,0);
+}
+
+.text-center {
+    text-align: center;
 }
 
 @media screen and (max-width: 744px) {

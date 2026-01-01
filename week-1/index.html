@@ -39,12 +39,14 @@
 
 <div class="search-and-add-section row-wrap-reverse gap-l">
     <div class="search-section">
-        <input type="text" class="search-input" placeholder="Oluşturulmuş görevlerde arama yapın">
-        <div class="square-button black" id="searchButton">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
+        <form action="" class="row">
+            <input type="text" class="search-input" placeholder="Oluşturulmuş görevlerde arama yapın" required>
+            <button class="square-button black" id="searchButton">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </form>
     </div>
 
     <div class="add-task-button row" id="openAddTaskPopup">
@@ -170,6 +172,23 @@
     </div>
 </div>
 
+<div class="popup" id="deletePopup">
+    <div class="popup-body">
+        <div class="popup-header">
+            <p>Görevi Sil</p>
+            <div class="circle-button mini-button" id="closeDeletePopup">
+                <svg class="close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 7L7 17M7 7L17 17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+        <div class="popup-content" >
+            <p class="text-center">Bu görevi silmek istediğinize emin misiniz?<br></p>
+            <p class="info-text text-center"><span id="deletePopupTask">Görev açıklaması</span></p>
+            <button class="add-form-button orange">Sil</button>
+        </div>
+    </div>
+</div>
 
 
 <script src="script.js"></script>

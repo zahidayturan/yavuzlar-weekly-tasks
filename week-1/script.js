@@ -66,6 +66,7 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
+
 /// FORM İLE GÖREV EKLEME İŞLEMLERİ
 
 const taskForm = document.querySelector('#addTaskForm');
@@ -200,7 +201,7 @@ const createTaskElement = (task) => {
     card.querySelector('.status-select').addEventListener('change', (e) => updateTask(task.id, { status: e.target.value }));
 
     card.querySelector('.delete-btn').addEventListener('click', () => {
-        if (confirm('Bu görevi silmek istediğinize emin misiniz?')) deleteTask(task.id);
+        toggleDeletePopup(true,task)
     });
 
     card.querySelector('.edit-btn').addEventListener('click', () => {
@@ -269,10 +270,10 @@ const renderTasks = () => {
 
     if (tasks.length === 0) {
         if(currentFilters.length !== 0) {
-            tasksContainer.innerHTML = '<p class="empty-list">Filtrelere uygun görev bulunamadı.</p>';
+            tasksContainer.innerHTML = '<p class="empty-list">Filtrelere uygun görev bulunamadı</p>';
 
         } else {
-            tasksContainer.innerHTML = '<p class="empty-list">Görev bulunamadı.</p>';
+            tasksContainer.innerHTML = '<p class="empty-list">Görev bulunamadı</p>';
         }
         return;
     }
@@ -286,6 +287,7 @@ const renderTasks = () => {
 };
 
 document.addEventListener('DOMContentLoaded', renderTasks);
+
 
 /// SIRALAMA - POPUP AÇMA KAPATMA
 
@@ -322,6 +324,7 @@ document.querySelectorAll('input[name="sortOrder"]').forEach(radio => {
         setTimeout(() => toggleSortPopup(false), 200);
     });
 });
+
 
 /// FİLTRELEME - POPUP AÇMA KAPATMA
 
@@ -373,6 +376,47 @@ searchInput.addEventListener('input', (e) => {
 const searchBtn = document.getElementById('searchButton');
 searchBtn.addEventListener('click', () => renderTasks());
 
+
+/* SİLME POPUP */
+
+const deletePopup = document.querySelector('#deletePopup');
+const closeDeletePopupBtn = document.querySelector('#closeDeletePopup');
+const deletePopupTask = document.querySelector('#deletePopupTask');
+
+let taskIdToDelete = null;
+const confirmDeleteBtn = document.querySelector('#deletePopup .add-form-button.orange');
+
+// Popup Açma/Kapama Fonksiyonu
+const toggleDeletePopup = (isOpen, task = null) => {
+    deletePopup.style.display = isOpen ? 'flex' : 'none';
+    document.body.classList.toggle('no-scroll', isOpen);
+
+    if (isOpen && task) {
+        deletePopupTask.textContent = task.title;
+        taskIdToDelete = task.id;
+        deletePopup.classList.add('active');
+    } else {
+        taskIdToDelete = null;
+        deletePopup.classList.remove('active');
+    }
+};
+
+confirmDeleteBtn.addEventListener('click', () => {
+    if (taskIdToDelete) {
+        deleteTask(taskIdToDelete);
+        toggleDeletePopup(false);
+    }
+});
+closeDeletePopupBtn.addEventListener('click', () => toggleDeletePopup(false));
+window.addEventListener('click', (e) => {
+    if (e.target === deletePopup) toggleDeletePopup(false);
+});
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && deletePopup.style.display === 'flex') {
+        toggleDeletePopup(false);
+    }
+});
 
 /* DİĞER */
 
