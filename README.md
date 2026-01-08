@@ -2,4 +2,5 @@
 
 - Work 1 (To-Do Application)
     - [Repo Link](https://github.com/zahidayturan/yavuzlar-weekly-tasks/tree/main/week-1)
-- Work 2 ()
+- Work 2 (CLI Web Scraper Tool)
+    - [Repo Link](https://github.com/zahidayturan/yavuzlar-weekly-tasks/tree/main/week-2)
